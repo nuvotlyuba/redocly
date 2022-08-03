@@ -41,7 +41,7 @@ When the parameter type is an object, you can configure the following:
 
 ``` js
 initTry({
-  openApi: `https://__/swagger/swagger.json`, // openApi address
+  openApi: `https://__swagger/swagger.json`, // openApi address
   // redocVersion: `2.0.0-rc.48`, // Used to handle compatibility issues, if not specified, read from the URL
   // onlySwagger: true,
   // tryText: `try`, // Try button text
