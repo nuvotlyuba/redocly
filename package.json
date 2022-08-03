@@ -1,0 +1,16 @@
+{
+  "name": "redocly",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "express": "^4.18.1"
+  },
+  "scripts": {
+    "test": "echo ",
+    "start": "node example/server.js"
+  },
+  "author": "novotlyubov",
+  "license": "MIT"
+}

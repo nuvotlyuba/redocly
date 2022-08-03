@@ -1,0 +1,1494 @@
+{
+    "paths": {
+      "/api/v1/coupons": {
+        "post": {
+          "description": "Создание купона из акции",
+          "operationId": "postCoupon",
+          "requestBody": {
+            "description": "CouponCreateRequestRequest",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CouponCreateRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CouponCreateSuccess"
+                  }
+                }
+              },
+              "description": "CouponCreateSuccess"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BadRequestError"
+                  }
+                }
+              },
+              "description": "Bad request error"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/InternalServerError"
+                  }
+                }
+              },
+              "description": "Internal server error"
+            }
+          },
+          "security": [],
+          "tags": [
+            "Coupon"
+          ]
+        }
+      },
+      "/api/v1/coupons/{couponId}": {
+        "get": {
+          "description": "Получение информации по купону",
+          "operationId": "getCoupon",
+          "parameters": [
+            {
+              "description": "ID купона",
+              "name": "couponId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "title": "CouponId",
+                "description": "Id купона"
+              },
+              "style": "simple"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CouponItemSuccess"
+                  }
+                }
+              },
+              "description": "CouponItemSuccess"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BadRequestError"
+                  }
+                }
+              },
+              "description": "Bad request error"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/NotFoundError"
+                  }
+                }
+              },
+              "description": "Not found error"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/InternalServerError"
+                  }
+                }
+              },
+              "description": "Internal server error"
+            }
+          },
+          "security": [],
+          "tags": [
+            "Coupon"
+          ]
+        }
+      },
+      "/api/v1/coupons/{couponId}/exchange": {
+        "post": {
+          "description": "Обмен купона на купон из другого магазина",
+          "operationId": "postExchangeCoupon",
+          "parameters": [
+            {
+              "description": "ID купона",
+              "name": "couponId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "title": "CouponId",
+                "description": "Id купона"
+              },
+              "style": "simple"
+            }
+          ],
+          "requestBody": {
+            "description": "CouponExchangeRequest",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CouponExchange"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/TargetCoupon"
+                  }
+                }
+              },
+              "description": "ID целевого купона"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BadRequestError"
+                  }
+                }
+              },
+              "description": "Bad request error"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/InternalServerError"
+                  }
+                }
+              },
+              "description": "Internal server error"
+            }
+          },
+          "security": [],
+          "tags": [
+            "Coupon"
+          ]
+        }
+      },
+      "/api/v1/coupons/{couponId}/apply": {
+        "post": {
+          "description": "Закрытие купона по PIN",
+          "operationId": "postApplyCoupon",
+          "parameters": [
+            {
+              "description": "ID купона",
+              "name": "couponId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "title": "CouponId",
+                "description": "Id купона"
+              },
+              "style": "simple"
+            }
+          ],
+          "requestBody": {
+            "description": "PinRequest",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pin"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Nothing"
+                  }
+                }
+              },
+              "description": "Пустой объект"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BadRequestError"
+                  }
+                }
+              },
+              "description": "Bad request error"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/InternalServerError"
+                  }
+                }
+              },
+              "description": "Internal server error"
+            }
+          },
+          "security": [],
+          "tags": [
+            "Coupon"
+          ]
+        }
+      },
+      "/api/v1/coupons/{couponId}/qr": {
+        "get": {
+          "description": "Создание QR купона на лету",
+          "operationId": "getCouponQR",
+          "parameters": [
+            {
+              "description": "ID купона",
+              "name": "couponId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "title": "CouponId",
+                "description": "Id купона"
+              },
+              "style": "simple"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Nothing"
+                  }
+                }
+              },
+              "description": "Пустой объект"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BadRequestError"
+                  }
+                }
+              },
+              "description": "Bad request error"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/NotFoundError"
+                  }
+                }
+              },
+              "description": "Not found error"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/InternalServerError"
+                  }
+                }
+              },
+              "description": "Internal server error"
+            }
+          },
+          "security": [],
+          "tags": [
+            "Coupon"
+          ]
+        }
+      },
+      "/api/v1/shops": {
+        "get": {
+          "description": "Получение списка магазинов",
+          "operationId": "getShopList",
+          "parameters": [
+            {
+              "description": "ID купона",
+              "name": "couponId",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "$ref": "#/components/schemas/CouponId"
+              }
+            },
+            {
+              "description": "ID категории",
+              "name": "categoryId",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "$ref": "#/components/schemas/CategoryId"
+              }
+            },
+            {
+              "description": "Номер этажа",
+              "name": "floor",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "$ref": "#/components/schemas/Floor"
+              }
+            },
+            {
+              "in": "query",
+              "name": "search",
+              "required": false,
+              "schema": {
+                "$ref": "#/components/schemas/SearchTextParameters"
+              }
+            },
+            {
+              "in": "query",
+              "name": "mallId",
+              "required": false,
+              "schema": {
+                "$ref": "#/components/schemas/MallId"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ShopListSuccess"
+                  }
+                }
+              },
+              "description": "ShopListSuccess"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BadRequestError"
+                  }
+                }
+              },
+              "description": "Bad request error"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/NotFoundError"
+                  }
+                }
+              },
+              "description": "Not found error"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/InternalServerError"
+                  }
+                }
+              },
+              "description": "Internal server error"
+            }
+          },
+          "security": [],
+          "tags": [
+            "Shop"
+          ]
+        }
+      },
+      "/api/v1/form/{formType}": {
+        "post": {
+          "description": "Отправка сообщения об обратной связи/формы регистрации",
+          "operationId": "postForm",
+          "parameters": [
+            {
+              "description": "Тип формы",
+              "name": "formType",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "$ref": "#/components/schemas/FromType"
+              },
+              "style": "simple"
+            }
+          ],
+          "requestBody": {
+            "description": "CreateFormRequest",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateForm"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Nothing"
+                  }
+                }
+              },
+              "description": "Пустой объект"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BadRequestError"
+                  }
+                }
+              },
+              "description": "Bad request error"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/InternalServerError"
+                  }
+                }
+              },
+              "description": "Internal server error"
+            }
+          },
+          "security": [],
+          "tags": [
+            "Form"
+          ]
+        }
+      },
+      "/api/v1/discounts/{discountQRId}": {
+        "get": {
+          "description": "Получение информации об акции",
+          "operationId": "getDiscount",
+          "parameters": [
+            {
+              "description": "ID QR скидки",
+              "name": "discountQRId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "$ref": "#/components/schemas/DiscountQRId"
+              },
+              "style": "simple"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DiscountItemSuccess"
+                  }
+                }
+              },
+              "description": "DiscountItemSuccess"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BadRequestError"
+                  }
+                }
+              },
+              "description": "Bad request error"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/NotFoundError"
+                  }
+                }
+              },
+              "description": "Not found error"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/InternalServerError"
+                  }
+                }
+              },
+              "description": "Internal server error"
+            }
+          },
+          "security": [],
+          "tags": [
+            "Discount"
+          ]
+        }
+      },
+      "/api/v1/discounts/{discountQRId}/qr": {
+        "get": {
+          "description": "Создание QR акции на лету",
+          "operationId": "getDiscountQR",
+          "parameters": [
+            {
+              "description": "ID QR скидки",
+              "name": "discountQRId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "$ref": "#/components/schemas/DiscountQRId"
+              },
+              "style": "simple"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Nothing"
+                  }
+                }
+              },
+              "description": "Пустой объект"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BadRequestError"
+                  }
+                }
+              },
+              "description": "Bad request error"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/NotFoundError"
+                  }
+                }
+              },
+              "description": "Not found error"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/InternalServerError"
+                  }
+                }
+              },
+              "description": "Internal server error"
+            }
+          },
+          "security": [],
+          "tags": [
+            "Discount"
+          ]
+        }
+      }
+    },
+    "info": {
+      "title": "API интерфейс сервиса куПончики",
+      "version": "1.0.0"
+    },
+    "openapi": "3.0.3",
+    "tags": [
+      {
+        "description": "Акция",
+        "name": "Discount"
+      },
+      {
+        "description": "Купон",
+        "name": "Coupon"
+      },
+      {
+        "description": "Форма",
+        "name": "Form"
+      },
+      {
+        "description": "Магазин",
+        "name": "Shop"
+      }
+    ],
+    "components": {
+      "schemas": {
+        "BadRequestError": {
+          "description": "Bad request error",
+          "properties": {
+            "name": {
+              "enum": [
+                "BadRequestError"
+              ],
+              "type": "string"
+            },
+            "message": {
+              "example": "Ошибка запроса",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "message"
+          ],
+          "title": "BadRequestError",
+          "type": "object",
+          "x-http-status": 400
+        },
+        "ForbiddenError": {
+          "description": "Forbidden error",
+          "properties": {
+            "name": {
+              "enum": [
+                "ForbiddenError"
+              ],
+              "type": "string"
+            },
+            "message": {
+              "example": "Доступ запрещён",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "message"
+          ],
+          "title": "ForbiddenError",
+          "type": "object",
+          "x-http-status": 403
+        },
+        "InternalServerError": {
+          "description": "Internal server error",
+          "properties": {
+            "name": {
+              "enum": [
+                "InternalServerError"
+              ],
+              "type": "string"
+            },
+            "message": {
+              "example": "Ошибка сервера",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "message"
+          ],
+          "title": "InternalServerError",
+          "type": "object",
+          "x-http-status": 500
+        },
+        "NotFoundError": {
+          "description": "Not found error",
+          "properties": {
+            "name": {
+              "enum": [
+                "NotFoundError"
+              ],
+              "type": "string"
+            },
+            "message": {
+              "example": "Сущность не найдена",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "message"
+          ],
+          "title": "NotFoundError",
+          "type": "object",
+          "x-http-status": 404
+        },
+        "ServiceUnavailableError": {
+          "description": "Service unavailable error",
+          "properties": {
+            "name": {
+              "enum": [
+                "ServiceUnavailableError"
+              ],
+              "type": "string"
+            },
+            "message": {
+              "example": "Сервис временно недоступен",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "message"
+          ],
+          "title": "ServiceUnavailableError",
+          "type": "object",
+          "x-http-status": 503
+        },
+        "UnauthorizedError": {
+          "description": "Unauthorized error",
+          "properties": {
+            "name": {
+              "enum": [
+                "UnauthorizedError"
+              ],
+              "type": "string"
+            },
+            "message": {
+              "example": "Требуется авторизация",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "message"
+          ],
+          "title": "UnauthorizedError",
+          "type": "object",
+          "x-http-status": 401
+        },
+        "Nothing": {
+          "description": "Пустой объект",
+          "properties": {},
+          "title": "Nothing",
+          "type": "object"
+        },
+        "CouponCreateRequest": {
+          "type": "object",
+          "title": "CouponCreateRequest",
+          "properties": {
+            "discountQRId": {
+              "type": "string",
+              "title": "DiscountQRId",
+              "description": "Id QR скидки",
+              "example": "Pfb7w9_AKCLt90vTMNPcQ",
+              "maxLength": 21,
+              "minLength": 21
+            }
+          },
+          "required": [
+            "discountQRId"
+          ]
+        },
+        "CouponCreateSuccess": {
+          "type": "object",
+          "title": "CouponCreateSuccess",
+          "required": [
+            "data"
+          ],
+          "properties": {
+            "data": {
+              "type": "object",
+              "required": [
+                "couponId",
+                "discount",
+                "shop",
+                "QRUrl"
+              ],
+              "properties": {
+                "couponId": {
+                  "type": "string",
+                  "title": "CouponId",
+                  "description": "Id купона"
+                },
+                "QRUrl": {
+                  "type": "string",
+                  "title": "QrCode",
+                  "description": "QR код в котором размещен URL купона"
+                },
+                "discount": {
+                  "type": "object",
+                  "required": [
+                    "benefit",
+                    "condition",
+                    "infoHeader"
+                  ],
+                  "properties": {
+                    "benefit": {
+                      "type": "object",
+                      "required": [
+                        "amount",
+                        "unit"
+                      ],
+                      "properties": {
+                        "amount": {
+                          "type": "integer",
+                          "title": "DiscountAmount",
+                          "minimum": 0,
+                          "description": "Величина получаемая от акции"
+                        },
+                        "unit": {
+                          "type": "string",
+                          "title": "DiscountAmountUnit",
+                          "description": "Единица измерения для amount (рубли, бонусы, ...)",
+                          "maxLength": 100
+                        }
+                      }
+                    },
+                    "activityTimeEnd": {
+                      "title": "ActivityTimeEnd",
+                      "type": "string",
+                      "description": "Срок годности купона"
+                    },
+                    "infoHeader": {
+                      "type": "string",
+                      "title": "DiscountInfoHeader",
+                      "description": "Короткое описание к акции",
+                      "maxLength": 200
+                    },
+                    "condition": {
+                      "type": "string",
+                      "title": "DiscountCondition",
+                      "description": "Расширенное описание условия акции",
+                      "maxLength": 500
+                    }
+                  },
+                  "title": "CouponDiscount",
+                  "description": "Информация о скидке для купона"
+                },
+                "shop": {
+                  "type": "object",
+                  "title": "CouponShops",
+                  "required": [
+                    "name",
+                    "logo",
+                    "floors"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Имя партнера"
+                    },
+                    "logo": {
+                      "type": "string",
+                      "description": "url логотипа партнера"
+                    },
+                    "floors": {
+                      "type": "array",
+                      "items": {
+                        "description": "Этажи расположения магазина"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "CouponItemSuccess": {
+          "type": "object",
+          "title": "CouponItemSuccess",
+          "required": [
+            "data"
+          ],
+          "properties": {
+            "data": {
+              "type": "object",
+              "required": [
+                "couponId",
+                "status",
+                "discount",
+                "shop",
+                "QRUrl",
+                "mall"
+              ],
+              "properties": {
+                "couponId": {
+                  "type": "string",
+                  "title": "CouponId",
+                  "description": "Id купона"
+                },
+                "status": {
+                  "type": "string",
+                  "title": "Status",
+                  "description": "Статус купона"
+                },
+                "QRUrl": {
+                  "type": "string",
+                  "title": "QrCode",
+                  "description": "QR код в котором размещен URL купона"
+                },
+                "discount": {
+                  "type": "object",
+                  "required": [
+                    "benefit",
+                    "condition",
+                    "infoHeader"
+                  ],
+                  "properties": {
+                    "benefit": {
+                      "type": "object",
+                      "required": [
+                        "amount",
+                        "unit"
+                      ],
+                      "properties": {
+                        "amount": {
+                          "type": "integer",
+                          "title": "DiscountAmount",
+                          "minimum": 0,
+                          "description": "Величина получаемая от акции"
+                        },
+                        "unit": {
+                          "type": "string",
+                          "title": "DiscountAmountUnit",
+                          "description": "Единица измерения для amount (рубли, бонусы, ...)",
+                          "maxLength": 100
+                        }
+                      }
+                    },
+                    "activityTimeEnd": {
+                      "title": "ActivityTimeEnd",
+                      "type": "string",
+                      "description": "Срок годности купона"
+                    },
+                    "infoHeader": {
+                      "type": "string",
+                      "title": "DiscountInfoHeader",
+                      "description": "Короткое описание к акции",
+                      "maxLength": 200
+                    },
+                    "condition": {
+                      "type": "string",
+                      "title": "DiscountCondition",
+                      "description": "Расширенное описание условия акции",
+                      "maxLength": 500
+                    }
+                  },
+                  "title": "CouponDiscount",
+                  "description": "Информация о скидке для купона"
+                },
+                "shop": {
+                  "type": "object",
+                  "title": "CouponShops",
+                  "required": [
+                    "name",
+                    "logo",
+                    "floors"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Имя партнера"
+                    },
+                    "logo": {
+                      "type": "string",
+                      "description": "url логотипа партнера"
+                    },
+                    "floors": {
+                      "type": "array",
+                      "items": {
+                        "description": "Этажи расположения магазина"
+                      }
+                    }
+                  }
+                },
+                "mall": {
+                  "type": "object",
+                  "title": "CouponMall",
+                  "description": "Информация о торговом центре",
+                  "required": [
+                    "name",
+                    "address"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Имя торгового центра"
+                    },
+                    "address": {
+                      "type": "string",
+                      "description": "Адрес торгового центра"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "CouponId": {
+          "type": "string",
+          "title": "CouponId",
+          "example": "Pfb7w9_AKCLt90vTMNPcQ",
+          "description": "ID купона",
+          "maxLength": 21,
+          "minLength": 21
+        },
+        "CouponExchange": {
+          "type": "object",
+          "title": "CouponExchange",
+          "properties": {
+            "shopIdExchange": {
+              "type": "string",
+              "title": "ShopIdExchange",
+              "example": "Pfb7w9_AKCLt90vTMNPcQ",
+              "description": "ID целевого магазина для обмена купона",
+              "maxLength": 21,
+              "minLength": 21
+            }
+          },
+          "required": [
+            "shopIdExchange"
+          ]
+        },
+        "TargetCoupon": {
+          "type": "object",
+          "title": "TargetCoupon",
+          "properties": {
+            "couponId": {
+              "$ref": "#/components/schemas/CouponId"
+            }
+          },
+          "required": [
+            "couponId"
+          ],
+          "description": "ID целевого купона"
+        },
+        "Pin": {
+          "type": "object",
+          "title": "Pin",
+          "properties": {
+            "applyPin": {
+              "type": "string",
+              "title": "ApplyPin",
+              "example": "1234",
+              "description": "PIN код для погашения купона"
+            }
+          },
+          "required": [
+            "applyPin"
+          ]
+        },
+        "ShopListSuccess": {
+          "type": "object",
+          "title": "ShopListSuccess",
+          "required": [
+            "filter",
+            "data"
+          ],
+          "properties": {
+            "filter": {
+              "title": "Filter",
+              "type": "object",
+              "required": [
+                "categoryId",
+                "floor"
+              ],
+              "properties": {
+                "categoryId": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "key",
+                      "value"
+                    ],
+                    "properties": {
+                      "key": {
+                        "type": "string",
+                        "title": "CategoryId",
+                        "example": "Pfb7w9_AKCLt90vTMNPcQ",
+                        "description": "ID категории"
+                      },
+                      "value": {
+                        "title": "Name",
+                        "type": "string",
+                        "description": "Название"
+                      }
+                    }
+                  }
+                },
+                "floor": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "key",
+                      "value"
+                    ],
+                    "properties": {
+                      "key": {
+                        "type": "string",
+                        "title": "Floor",
+                        "example": "1",
+                        "description": "Номер этажа в торговом центре"
+                      },
+                      "value": {
+                        "type": "string",
+                        "title": "Floor",
+                        "example": "1",
+                        "description": "Номер этажа в торговом центре"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "data": {
+              "type": "array",
+              "title": "ShopData",
+              "items": {
+                "type": "object",
+                "required": [
+                  "mall",
+                  "name",
+                  "status",
+                  "logo",
+                  "discount",
+                  "shopId"
+                ],
+                "properties": {
+                  "shopId": {
+                    "title": "ShopId",
+                    "type": "string",
+                    "example": "Pfb7w9_AKCLt90vTMNPcQ",
+                    "description": "ID магазина"
+                  },
+                  "name": {
+                    "title": "Name",
+                    "type": "string",
+                    "description": "Название"
+                  },
+                  "status": {
+                    "title": "Status",
+                    "type": "string",
+                    "description": "Статуc сущности"
+                  },
+                  "logo": {
+                    "title": "LogoUrl",
+                    "type": "string",
+                    "description": "Логотип"
+                  },
+                  "mall": {
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "mallId",
+                      "address"
+                    ],
+                    "properties": {
+                      "mallId": {
+                        "title": "MallId",
+                        "type": "string",
+                        "example": "Pfb7w9_AKCLt90vTMNPcQ",
+                        "description": "ID торгового центра"
+                      },
+                      "name": {
+                        "title": "MallName",
+                        "type": "string",
+                        "description": "Название торгового центра"
+                      },
+                      "address": {
+                        "title": "Address",
+                        "type": "string",
+                        "description": "Адрес"
+                      }
+                    }
+                  },
+                  "discount": {
+                    "type": "object",
+                    "required": [
+                      "discountQRId",
+                      "benefit",
+                      "infoHeader",
+                      "condition"
+                    ],
+                    "properties": {
+                      "discountQRId": {
+                        "type": "string",
+                        "title": "DiscountQRId",
+                        "description": "Id QR скидки",
+                        "example": "Pfb7w9_AKCLt90vTMNPcQ",
+                        "maxLength": 21,
+                        "minLength": 21
+                      },
+                      "benefit": {
+                        "type": "object",
+                        "required": [
+                          "amount",
+                          "unit"
+                        ],
+                        "properties": {
+                          "amount": {
+                            "type": "integer",
+                            "title": "DiscountAmount",
+                            "minimum": 0,
+                            "description": "Величина получаемая от акции"
+                          },
+                          "unit": {
+                            "type": "string",
+                            "title": "DiscountAmountUnit",
+                            "description": "Единица измерения для amount (рубли, бонусы, ...)",
+                            "maxLength": 100
+                          }
+                        }
+                      },
+                      "infoHeader": {
+                        "type": "string",
+                        "title": "DiscountInfoHeader",
+                        "description": "Короткое описание к акции",
+                        "maxLength": 200
+                      },
+                      "condition": {
+                        "type": "string",
+                        "title": "DiscountCondition",
+                        "description": "Расширенное описание условия акции",
+                        "maxLength": 500
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "CategoryId": {
+          "type": "string",
+          "title": "CategoryId",
+          "description": "ID категории"
+        },
+        "Floor": {
+          "type": "string",
+          "title": "Floor",
+          "description": "Номер этажа"
+        },
+        "SearchTextParameters": {
+          "type": "string",
+          "title": "SearchTextParameters",
+          "description": "Фраза для текстового поиска"
+        },
+        "MallId": {
+          "type": "string",
+          "title": "MallId",
+          "description": "ID торгового центра"
+        },
+        "CreateForm": {
+          "type": "object",
+          "title": "CreateForm",
+          "required": [
+            "email",
+            "phone",
+            "name",
+            "accept"
+          ],
+          "properties": {
+            "email": {
+              "type": "string",
+              "title": "Email",
+              "description": "Электропочта"
+            },
+            "phone": {
+              "type": "string",
+              "example": "79111111111",
+              "title": "Phone",
+              "description": "Номер телефона",
+              "minLength": 11,
+              "maxLength": 11
+            },
+            "name": {
+              "type": "string",
+              "title": "Name",
+              "description": "Имя пользователя"
+            },
+            "accept": {
+              "type": "boolean",
+              "title": "Accept",
+              "description": "Принять соглашение"
+            },
+            "shopName": {
+              "type": "string",
+              "title": "ShopName",
+              "description": "Название магазина"
+            },
+            "grade": {
+              "type": "string",
+              "title": "Grade",
+              "description": "Оценка работы"
+            },
+            "message": {
+              "type": "string",
+              "title": "Message",
+              "description": "Сообщение обратной связи"
+            },
+            "mallId": {
+              "type": "string",
+              "title": "MallId",
+              "description": "ID торгового центра"
+            },
+            "shopId": {
+              "type": "string",
+              "title": "ShopId",
+              "description": "ID магазина"
+            },
+            "infoHeader": {
+              "type": "string",
+              "title": "InfoHeader",
+              "description": "Описание условия акции"
+            },
+            "couponAmount": {
+              "type": "string",
+              "title": "CouponAmount",
+              "description": "Количество создаваемых купонов"
+            }
+          }
+        },
+        "FromType": {
+          "type": "string",
+          "title": "FromType",
+          "enum": [
+            "registration",
+            "feedback"
+          ],
+          "description": "Тип формы"
+        },
+        "DiscountItemSuccess": {
+          "type": "object",
+          "title": "DiscountItemSuccess",
+          "required": [
+            "data"
+          ],
+          "properties": {
+            "data": {
+              "type": "object",
+              "required": [
+                "infoHeader",
+                "condition",
+                "benefit",
+                "shop",
+                "discountId",
+                "name",
+                "beforeDate",
+                "mall",
+                "activityTimeEnd"
+              ],
+              "properties": {
+                "discountId": {
+                  "type": "string",
+                  "title": "DiscountId",
+                  "description": "ID акции"
+                },
+                "name": {
+                  "type": "string",
+                  "title": "DiscountName",
+                  "description": "Название акции"
+                },
+                "beforeDate": {
+                  "type": "string",
+                  "title": "BeforeDate",
+                  "description": "Дата до которой актуальна акция"
+                },
+                "benefit": {
+                  "type": "object",
+                  "required": [
+                    "amount",
+                    "unit"
+                  ],
+                  "properties": {
+                    "amount": {
+                      "type": "integer",
+                      "title": "DiscountAmount",
+                      "minimum": 0,
+                      "description": "Величина получаемая от акции"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "title": "DiscountAmountUnit",
+                      "description": "Единица измерения для amount (рубли, бонусы, ...)",
+                      "maxLength": 100
+                    }
+                  }
+                },
+                "activityTimeEnd": {
+                  "title": "ActivityTimeEnd",
+                  "type": "string",
+                  "description": "Срок годности купона"
+                },
+                "infoHeader": {
+                  "type": "string",
+                  "title": "DiscountInfoHeader",
+                  "description": "Короткое описание к акции",
+                  "maxLength": 200
+                },
+                "condition": {
+                  "type": "string",
+                  "title": "DiscountCondition",
+                  "description": "Расширенное описание условия акции",
+                  "maxLength": 500
+                },
+                "shop": {
+                  "type": "object",
+                  "title": "DiscountShops",
+                  "description": "Информация о магазине",
+                  "required": [
+                    "name",
+                    "logo",
+                    "floors"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Имя партнера"
+                    },
+                    "logo": {
+                      "type": "string",
+                      "description": "url логотипа партнера"
+                    },
+                    "floors": {
+                      "type": "array",
+                      "items": {
+                        "description": "Этажи расположения магазина"
+                      }
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "статус магазина"
+                    }
+                  }
+                },
+                "mall": {
+                  "type": "object",
+                  "title": "CouponMall",
+                  "description": "Информация о торговом центре",
+                  "required": [
+                    "name",
+                    "address"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Имя торгового центра"
+                    },
+                    "address": {
+                      "type": "string",
+                      "description": "Адрес торгового центра"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "DiscountQRId": {
+          "type": "string",
+          "title": "DiscountQRId",
+          "description": "ID QR скидки"
+        }
+      }
+    }
+  }
