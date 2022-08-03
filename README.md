@@ -1,4 +1,4 @@
-#[redoc-express-try].[redoc-express-try]
+#[redoc-express-try][redoc-express-try]
 
 ## Install
 
