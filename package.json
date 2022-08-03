@@ -2,7 +2,7 @@
   "name": "redocly",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "redocly.js",
   "dependencies": {},
   "devDependencies": {
     "express": "^4.18.1"
@@ -11,6 +11,6 @@
     "test": "echo ",
     "start": "node example/server.js"
   },
-  "author": "novotlyubov",
+  "author": "nuvotlyuba",
   "license": "MIT"
 }
