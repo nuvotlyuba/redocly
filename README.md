@@ -27,7 +27,7 @@ app.get('/docs/swagger.json', (req, res) => {
   <script src="https://cdn.jsdelivr.net/gh/wll8/redoc-try@1.4.1/dist/try.js"></script>
   <script>
     initTry({
-      openApi: 'https://__swagger/swagger.json',
+      openApi: 'https:/__swagger/swagger.json',
       redocOptions: {scrollYOffset: 50},
     })
   </script>
