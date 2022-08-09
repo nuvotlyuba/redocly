@@ -1,16 +1,21 @@
 {
-  "name": "redocly",
+  "name": "@redocly/express-try",
   "version": "1.0.0",
   "description": "",
-  "main": "redocly.js",
-  "dependencies": {},
   "devDependencies": {
     "express": "^4.18.1"
   },
   "scripts": {
-    "test": "echo ",
     "start": "node example/server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git + https://github.com/nuvotlyuba/redocly.git"
+  },
   "author": "nuvotlyuba",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nuvotlyuba/redocly/issues"
+  },
+  "homepage": "https://github.com/nuvotlyuba/redocly#readme"
 }
