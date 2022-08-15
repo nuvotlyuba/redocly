@@ -1,4 +1,4 @@
-# [redocly]
+# [redocly-express-try]
 
 ## Install
 
@@ -9,7 +9,7 @@ npm install redocly
 ## Usage
 
 ```javascript
-const redocly = require('redocly');
+const redocly = require('redocly-express-try');
 const express = require('express');
 
 const app = express();
@@ -20,7 +20,8 @@ const port = 3000;
 redocly('/doc', app, __dirname + '/swagger.json', {tryText: 'Try'});
 
 app.listen(3000, () => console.log('Server start...'));
-## Options
+
+Options
 
   redocVersion: `2.0.0-rc.48`, // Used to handle compatibility issues, if not specified, read from the URL
   onlySwagger: true,

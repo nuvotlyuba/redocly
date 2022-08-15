@@ -1,5 +1,5 @@
 {
-  "name": "@redocly/express-try",
+  "name": "redocly-express-try",
   "version": "1.0.0",
   "description": "",
   "devDependencies": {
