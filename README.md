@@ -9,7 +9,7 @@ npm install redocly
 ## Usage
 
 ```javascript
-const redocly = require('redocly-express-try');
+const { redocly } = require('redocly-express-try');
 const express = require('express');
 
 const app = express();
@@ -17,7 +17,7 @@ const port = 3000;
 
 // serve your swagger.json file
 
-redocly('/doc', app, __dirname + '/swagger.json', {tryText: 'Try'});
+redocly('/doc', app, __dirname + '/swagger.json', { tryText: 'Try' });
 
 app.listen(3000, () => console.log('Server start...'));
 
